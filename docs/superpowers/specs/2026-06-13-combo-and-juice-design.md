@@ -174,7 +174,7 @@ effectiveForce = tractionForce × rampFactor
 | `src/game/balance.ts` | getComboMultiplier（不变），settleBalance（不变） |
 | `src/game/bikeControl.ts` | BikeControlInput 加 jump，Output 加 jumpForce |
 | `src/game/RideScene.ts` | 双 combo 追踪、跳跃输入、全金币渲染/拾取、牵引渐变、hit-stop/震动/闪色/粒子 |
-| `src/game/StonkGame.ts` | GameCallbacks 扩展 |
+| `src/game/LeekKnightGame.ts` | GameCallbacks 扩展 |
 | `src/game/audio.ts` | combo-aware 音效、combo break 音效 |
 | `src/main.ts` | 双 combo HUD、toast 分级、弹性过冲、combo 断连 |
 | `src/style.css` | 双 combo HUD 样式、toast 分级样式 |

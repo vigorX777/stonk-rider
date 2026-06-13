@@ -36,7 +36,7 @@ export interface LeaderboardQueryResponse {
   entries: LeaderboardEntry[]
 }
 
-const PLAYER_ID_KEY = 'stonk-rider-player-id'
+const PLAYER_ID_KEY = 'leek-knight-player-id'
 
 export function getPlayerId(): string {
   let id = localStorage.getItem(PLAYER_ID_KEY)

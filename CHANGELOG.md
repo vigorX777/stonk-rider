@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.3.1 - 2026-06-13
+
+- 项目品牌迁移为中文名「韭菜骑士」，英文名使用 `Leek Knight`。
+- 对外链接、README、页面标题、首页品牌、localStorage key、包名、Wrangler Pages 项目名统一切换到 `leek-knight`。
+- 试玩域名更新为 `https://leek-knight.pages.dev`。
+
 ## 1.3.0 - 2026-06-13
 
 - 新增 Cloudflare Pages Functions 排行榜 API，支持提交成绩、查询单股榜和全局榜。

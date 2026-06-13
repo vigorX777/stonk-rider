@@ -12,7 +12,7 @@ export interface GameCallbacks {
   onComboBreak?: () => void
 }
 
-export class StonkGame {
+export class LeekKnightGame {
   private game: Phaser.Game | null = null
   private stock: StockDataset
   private amount: number

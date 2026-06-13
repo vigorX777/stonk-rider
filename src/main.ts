@@ -13,16 +13,16 @@ import { calculateReturn, formatMoney, formatPercent } from './game/balance'
 import { buildChartGeometry, buildLinePath, type ChartPoint } from './ui/chart'
 import { getPlayerId, submitScore, fetchLeaderboard, type LeaderboardSubmitResponse } from './ui/leaderboard'
 import { randomName } from './ui/names'
-import type { StonkGame } from './game/StonkGame'
+import type { LeekKnightGame } from './game/LeekKnightGame'
 import type { ComboSlot, DualComboState, RunResult, SettlementPoint, StockDataset, StockMetadata } from './types'
 
 const app = document.querySelector<HTMLDivElement>('#app')!
 const audio = new GameAudio()
 let stocks: StockMetadata[] = []
 const stockDatasets = new Map<string, StockDataset>()
-let selectedCode = localStorage.getItem('stonk-rider-stock') ?? '600519'
-let currentGame: StonkGame | null = null
-let lastAmount = Number(localStorage.getItem('stonk-rider-amount') ?? 100000)
+let selectedCode = localStorage.getItem('leek-knight-stock') ?? '600519'
+let currentGame: LeekKnightGame | null = null
+let lastAmount = Number(localStorage.getItem('leek-knight-amount') ?? 100000)
 let overviewPoints: ChartPoint[] = []
 let balanceAnimationUntil = 0
 let balanceAnimationFrame = 0
@@ -33,9 +33,9 @@ app.innerHTML = `
   <div class="ambient-grid"></div>
   <main id="landing" class="screen landing-screen is-active">
     <nav class="topbar">
-      <a class="brand" href="#"><span class="brand-mark">SR</span><span>STONK RIDER</span></a>
+      <a class="brand" href="#"><span class="brand-mark">LK</span><span>韭菜骑士</span></a>
       <div class="topbar-actions">
-        <a class="repo-link" href="https://github.com/vigorX777/stonk-rider" target="_blank" rel="noreferrer">GitHub Repo</a>
+        <a class="repo-link" href="https://github.com/vigorX777/leek-knight" target="_blank" rel="noreferrer">GitHub Repo</a>
         <button id="sound-top" class="icon-button" aria-label="切换音效">SOUND ON</button>
       </div>
     </nav>
@@ -46,7 +46,7 @@ app.innerHTML = `
         <p class="hero-lead">把真实 A 股近一年走势变成越野赛道。油门、重心与市场波动，缺一不可。</p>
         <button id="play-now" class="cta-button"><span>PLAY NOW</span><b>→</b></button>
         <p class="disclaimer">娱乐作品 · 历史数据可视化 · 不构成任何投资建议</p>
-        <p class="author-credit">Made by <b>vigorxu</b> · Stonk Rider creator</p>
+        <p class="author-credit">Made by <b>vigorxu</b> · 韭菜骑士 / Leek Knight creator</p>
       </div>
         <div class="hero-art" aria-hidden="true">
         <div class="sun"></div><div class="chart-line"></div>
@@ -167,7 +167,7 @@ app.innerHTML = `
       <button id="close-leaderboard" class="secondary-button leaderboard-close">关闭</button>
     </div>
   </div>
-  <div id="mobile-warning"><b>请横屏并使用桌面浏览器</b><span>Stonk Rider 首版需要键盘控制。</span></div>
+  <div id="mobile-warning"><b>请横屏并使用桌面浏览器</b><span>韭菜骑士首版需要键盘控制。</span></div>
 `
 
 const $ = <T extends HTMLElement>(selector: string): T => document.querySelector<T>(selector)!
@@ -200,7 +200,7 @@ function renderStocks(): void {
   `}).join('')
   document.querySelectorAll<HTMLButtonElement>('.stock-card').forEach((button) => button.addEventListener('click', () => {
     selectedCode = button.dataset.code!
-    localStorage.setItem('stonk-rider-stock', selectedCode)
+    localStorage.setItem('leek-knight-stock', selectedCode)
     document.querySelectorAll('.stock-card').forEach((card) => card.classList.toggle('is-selected', card === button))
     audio.play('ui')
   }))
@@ -240,9 +240,9 @@ async function startRide(): Promise<void> {
   try {
     await audio.unlock().catch(() => undefined)
     const stock = stockDatasets.get(selectedCode) ?? await loadStock(selectedCode)
-    const { StonkGame } = await import('./game/StonkGame')
+    const { LeekKnightGame } = await import('./game/LeekKnightGame')
     lastAmount = amount
-    localStorage.setItem('stonk-rider-amount', String(amount))
+    localStorage.setItem('leek-knight-amount', String(amount))
     $('#hud-code').textContent = `${stock.metadata.exchange}:${stock.metadata.code}`
     $('#hud-name').textContent = stock.metadata.name
     $('#hud-balance').textContent = formatMoney(amount)
@@ -252,7 +252,7 @@ async function startRide(): Promise<void> {
     showScreen('game')
     renderOverview(stock)
     currentGame?.destroy()
-    currentGame = new StonkGame(stock, amount, {
+    currentGame = new LeekKnightGame(stock, amount, {
       onHud: (state) => {
         if (performance.now() >= balanceAnimationUntil) $('#hud-balance').textContent = formatMoney(state.balance)
         $('#hud-return').textContent = formatPercent(state.returnRate)

@@ -1,14 +1,14 @@
-# Stonk Rider
+# 韭菜骑士 / Leek Knight
 
 把真实 A 股近一年 K 线变成越野摩托赛道的浏览器物理游戏。
 
-线上试玩：[https://stonk-rider.pages.dev](https://stonk-rider.pages.dev)
+线上试玩：[https://leek-knight.pages.dev](https://leek-knight.pages.dev)
 
-代码仓库：[https://github.com/vigorX777/stonk-rider](https://github.com/vigorX777/stonk-rider)
+代码仓库：[https://github.com/vigorX777/leek-knight](https://github.com/vigorX777/leek-knight)
 
-![Stonk Rider 小黑配图](assets/stonk-rider-illustrations/01-k-line-rider.png)
+![韭菜骑士 / Leek Knight 小黑配图](assets/leek-knight-illustrations/01-k-line-rider.png)
 
-小黑把 A 股 K 线当山路骑：涨也捡，跌也捡，模拟余额像老虎机一样发疯。
+小黑把 A 股 K 线当山路骑：涨也捡，跌也捡，真实收益结算后冲进在线全网排行。
 
 ## 操作
 
@@ -73,11 +73,11 @@ npm install -g wrangler
 wrangler login
 
 # 3. 创建 D1 数据库
-wrangler d1 create stonk-rider-db
+wrangler d1 create leek-knight-db
 # 将输出的 database_id 填入 wrangler.toml
 
 # 4. 执行建表
-wrangler d1 execute stonk-rider-db --file=schema.sql
+wrangler d1 execute leek-knight-db --file=schema.sql
 
 # 5. 构建并部署
 npm run build

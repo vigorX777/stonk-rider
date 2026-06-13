@@ -1,7 +1,7 @@
-name = "stonk-rider"
+name = "leek-knight"
 pages_build_output_dir = "dist"
 compatibility_date = "2026-06-13"
 [[d1_databases]]
 binding = "DB"
-database_name = "stonk-rider-db"
-database_id = "c080c589-10ce-4401-b1e9-00e6776223c0"
+database_name = "leek-knight-db"
+database_id = "0bfb9966-51a6-4dda-80b4-38811a29f9c5"

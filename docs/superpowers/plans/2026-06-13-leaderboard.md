@@ -2,7 +2,7 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** 为 Stonk Rider 增加全球排行榜 + 公网部署，玩家通关后提交成绩、查看排名、获取"超过 X% 玩家"的正反馈。
+**Goal:** 为 Leek Knight 增加全球排行榜 + 公网部署，玩家通关后提交成绩、查看排名、获取"超过 X% 玩家"的正反馈。
 
 **Architecture:** Cloudflare Pages（前端托管）+ Pages Functions（API）+ D1（SQLite 数据库）。API 同域部署，无 CORS。前端通过 `src/ui/leaderboard.ts` 封装 API 调用，`main.ts` 在通关流程中接入。
 
@@ -54,13 +54,13 @@ CREATE INDEX IF NOT EXISTS idx_leaderboard_player ON leaderboard(player_id, stoc
 - [ ] **Step 2: 创建 `wrangler.toml`**
 
 ```toml
-name = "stonk-rider"
+name = "leek-knight"
 pages_build_output_dir = "dist"
 compatibility_date = "2026-06-13"
 
 [[d1_databases]]
 binding = "DB"
-database_name = "stonk-rider-db"
+database_name = "leek-knight-db"
 database_id = "PLACEHOLDER"
 ```
 
@@ -71,13 +71,13 @@ database_id = "PLACEHOLDER"
 ```bash
 npm install -g wrangler
 wrangler login
-wrangler d1 create stonk-rider-db
+wrangler d1 create leek-knight-db
 ```
 
 记录输出的 `database_id`，填入 `wrangler.toml` 替换 `PLACEHOLDER`。
 
 ```bash
-wrangler d1 execute stonk-rider-db --file=schema.sql
+wrangler d1 execute leek-knight-db --file=schema.sql
 ```
 
 Expected: 表创建成功。
@@ -397,7 +397,7 @@ export interface LeaderboardQueryResponse {
 }
 
 export function getPlayerId(): string {
-  const key = 'stonk-rider-player-id'
+  const key = 'leek-knight-player-id'
   let id = localStorage.getItem(key)
   if (!id) {
     id = crypto.randomUUID()
@@ -767,11 +767,11 @@ npm install -g wrangler
 wrangler login
 
 # 3. 创建 D1 数据库
-wrangler d1 create stonk-rider-db
+wrangler d1 create leek-knight-db
 # 将输出的 database_id 填入 wrangler.toml
 
 # 4. 执行建表
-wrangler d1 execute stonk-rider-db --file=schema.sql
+wrangler d1 execute leek-knight-db --file=schema.sql
 
 # 5. 构建并部署
 npm run build
@@ -818,7 +818,7 @@ wrangler login
 - [ ] **Step 2: 创建 D1 数据库**
 
 ```bash
-wrangler d1 create stonk-rider-db
+wrangler d1 create leek-knight-db
 ```
 
 复制输出的 `database_id`，编辑 `wrangler.toml` 替换 `PLACEHOLDER`：
@@ -830,7 +830,7 @@ database_id = "your-actual-database-id"
 - [ ] **Step 3: 执行建表 SQL**
 
 ```bash
-wrangler d1 execute stonk-rider-db --file=schema.sql
+wrangler d1 execute leek-knight-db --file=schema.sql
 ```
 
 Expected: ✅ SQL 执行成功。
@@ -859,7 +859,7 @@ wrangler pages deploy dist/
 
 - [ ] **Step 6: 公网验证**
 
-打开部署后的 URL（形如 `https://stonk-rider.pages.dev`），完成一轮游戏，提交成绩，验证 API 正常返回排名。
+打开部署后的 URL（形如 `https://leek-knight.pages.dev`），完成一轮游戏，提交成绩，验证 API 正常返回排名。
 
 ---
 

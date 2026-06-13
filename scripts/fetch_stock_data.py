@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Fetch and freeze the A-share datasets used by Stonk Rider."""
+"""Fetch and freeze the A-share datasets used by Leek Knight."""
 
 from __future__ import annotations
 

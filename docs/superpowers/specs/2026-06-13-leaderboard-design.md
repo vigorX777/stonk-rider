@@ -2,7 +2,7 @@
 
 ## 概述
 
-为 Stonk Rider 增加全球排行榜系统：玩家通关后提交成绩，可查看所在赛道的全局排名、个人最佳成绩、Top 3 榜单。"你已超过全球 X% 的玩家"提供社交比较驱动。
+为 Leek Knight 增加全球排行榜系统：玩家通关后提交成绩，可查看所在赛道的全局排名、个人最佳成绩、Top 3 榜单。"你已超过全球 X% 的玩家"提供社交比较驱动。
 
 部署到 Cloudflare Pages + Workers + D1，零成本运维。
 
@@ -13,7 +13,7 @@
 ```
 玩家浏览器                            Cloudflare
 ┌──────────────┐                ┌──────────────────┐
-│  Stonk Rider │  POST/GET      │  Pages Functions │
+│  Leek Knight │  POST/GET      │  Pages Functions │
 │  (静态前端)   │ ◄────────────▶ │  /api/leaderboard │
 │              │                │         │        │
 └──────────────┘                │         ▼        │
@@ -122,7 +122,7 @@ CREATE INDEX idx_player ON leaderboard(player_id, stock_code);
 首次访问时生成 UUID 存 localStorage：
 ```typescript
 function getPlayerId(): string {
-  const key = 'stonk-rider-player-id'
+  const key = 'leek-knight-player-id'
   let id = localStorage.getItem(key)
   if (!id) {
     id = crypto.randomUUID()
@@ -255,13 +255,13 @@ stock-ridier/
 ### 6.3 wrangler.toml
 
 ```toml
-name = "stonk-rider"
+name = "leek-knight"
 pages_build_output_dir = "dist"
 compatibility_date = "2026-06-13"
 
 [[d1_databases]]
 binding = "DB"
-database_name = "stonk-rider-db"
+database_name = "leek-knight-db"
 database_id = "your-database-id"
 ```
 
@@ -275,10 +275,10 @@ npm install -g wrangler
 wrangler login
 
 # 3. 创建 D1 数据库
-wrangler d1 create stonk-rider-db
+wrangler d1 create leek-knight-db
 
 # 4. 执行建表
-wrangler d1 execute stonk-rider-db --file=schema.sql
+wrangler d1 execute leek-knight-db --file=schema.sql
 
 # 5. 部署
 npm run build

@@ -4,7 +4,7 @@ export class GameAudio {
   private context: AudioContext | null = null
   private engineOscillator: OscillatorNode | null = null
   private engineGain: GainNode | null = null
-  private muted = localStorage.getItem('stonk-rider-muted') === 'true'
+  private muted = localStorage.getItem('leek-knight-muted') === 'true'
 
   get isMuted(): boolean {
     return this.muted
@@ -32,7 +32,7 @@ export class GameAudio {
 
   toggle(): boolean {
     this.muted = !this.muted
-    localStorage.setItem('stonk-rider-muted', String(this.muted))
+    localStorage.setItem('leek-knight-muted', String(this.muted))
     if (this.engineGain && this.context) {
       this.engineGain.gain.setTargetAtTime(this.muted ? 0 : 0.055, this.context.currentTime, 0.03)
     }
