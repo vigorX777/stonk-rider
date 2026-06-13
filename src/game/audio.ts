@@ -1,7 +1,7 @@
 import { BGM_STEP_SECONDS, getBgmStep } from './bgm'
 
 type SoundKind = 'ui' | 'gain' | 'loss' | 'land' | 'crash' | 'finish'
-const BGM_MASTER_GAIN = 0.38
+const BGM_MASTER_GAIN = 0.76
 
 export class GameAudio {
   private context: AudioContext | null = null
