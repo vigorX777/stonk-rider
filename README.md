@@ -6,8 +6,6 @@
 
 代码仓库：[https://github.com/vigorX777/leek-knight](https://github.com/vigorX777/leek-knight)
 
-项目复盘：[docs/retrospectives/2026-06-13-project-retrospective.md](docs/retrospectives/2026-06-13-project-retrospective.md)
-
 ![韭菜骑士 / Leek Knight 小黑配图](assets/leek-knight-illustrations/01-k-line-rider.png)
 
 小黑把 A 股 K 线当山路骑：涨也捡，跌也捡，真实收益结算后冲进在线全网排行。

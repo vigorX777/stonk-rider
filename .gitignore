@@ -15,6 +15,14 @@ dist-ssr
 .wrangler
 *.local
 
+# Local development-process documents
+AGENTS.md
+RESEARCH.md
+docs/superpowers/
+docs/retrospectives/
+docs/plans/
+docs/specs/
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
