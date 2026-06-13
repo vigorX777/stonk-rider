@@ -1,6 +1,7 @@
 import { BGM_STEP_SECONDS, getBgmStep } from './bgm'
 
 type SoundKind = 'ui' | 'gain' | 'loss' | 'land' | 'crash' | 'finish'
+const BGM_MASTER_GAIN = 0.38
 
 export class GameAudio {
   private context: AudioContext | null = null
@@ -48,7 +49,7 @@ export class GameAudio {
       this.engineGain.gain.setTargetAtTime(this.muted ? 0 : 0.055, this.context.currentTime, 0.03)
     }
     if (this.bgmGain && this.context) {
-      this.bgmGain.gain.setTargetAtTime(this.muted ? 0 : 0.032, this.context.currentTime, 0.05)
+      this.bgmGain.gain.setTargetAtTime(this.muted ? 0 : BGM_MASTER_GAIN, this.context.currentTime, 0.05)
     }
     return this.muted
   }
@@ -89,7 +90,7 @@ export class GameAudio {
     await this.unlock()
     if (!this.context || this.bgmTimer !== null) return
     this.bgmGain = this.context.createGain()
-    this.bgmGain.gain.value = this.muted ? 0 : 0.032
+    this.bgmGain.gain.value = this.muted ? 0 : BGM_MASTER_GAIN
     this.bgmGain.connect(this.context.destination)
     this.bgmStep = 0
     this.scheduleBgmStep(0)

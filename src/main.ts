@@ -565,7 +565,6 @@ function escapeHtml(text: string): string {
 
 function showResult(result: RunResult): void {
   audio.stopEngine()
-  audio.stopBgm()
   lastRunResult = result
   const totalReturn = calculateReturn(result.initialAmount, result.finalAmount)
   $('#result-kicker').innerHTML = `<span></span> ${result.reason === 'finished' ? 'RIDE COMPLETE' : 'MARKET CRASH'}`
@@ -588,7 +587,6 @@ function exitGame(): void {
   currentGame?.destroy()
   currentGame = null
   audio.stopEngine()
-  audio.stopBgm()
   $('#result-modal').classList.remove('is-visible')
   $('#full-leaderboard-modal').classList.remove('is-visible')
   showScreen('setup')
@@ -624,6 +622,7 @@ $('#close-leaderboard').addEventListener('click', () => $('#full-leaderboard-mod
 async function toggleSound(): Promise<void> {
   await audio.unlock().catch(() => undefined)
   audio.toggle()
+  await audio.startBgm().catch(() => undefined)
   updateSoundLabels()
 }
 $('#sound-top').addEventListener('click', () => { void toggleSound() })
@@ -636,3 +635,11 @@ document.querySelectorAll<HTMLButtonElement>('[data-amount]').forEach((button) =
 }))
 $<HTMLInputElement>('#amount').value = String(lastAmount)
 updateSoundLabels()
+
+function startPageBgm(): void {
+  void audio.startBgm().then(updateSoundLabels).catch(() => undefined)
+}
+
+startPageBgm()
+window.addEventListener('pointerdown', startPageBgm, { capture: true })
+window.addEventListener('keydown', startPageBgm, { capture: true })
