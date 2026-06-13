@@ -118,6 +118,12 @@ describe('bike control model', () => {
     expect(result.jumpForce).toBeGreaterThan(0)
   })
 
+  it('returns positive jump force when jump is pressed with only the front wheel grounded', () => {
+    const result = stepBikeControl(input({ grounded: true, rearGrounded: false, jump: true }))
+
+    expect(result.jumpForce).toBeGreaterThan(0)
+  })
+
   it('increases jump force with speed', () => {
     const slow = stepBikeControl(input({ rearGrounded: true, jump: true, speedX: 2 }))
     const fast = stepBikeControl(input({ rearGrounded: true, jump: true, speedX: 12 }))

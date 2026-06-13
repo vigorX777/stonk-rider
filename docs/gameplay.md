@@ -17,7 +17,8 @@
 
 ## Jump And Traction
 
-- Press `Space` to jump when the rear wheel is grounded. Airborne jumps are rejected.
+- Press `Space` to jump when either wheel is grounded. Airborne jumps are rejected.
+- Jump input is buffered briefly before landing so a slightly early press still fires on the first grounded frame.
 - Jump force grows with horizontal speed and caps at `0.10`.
 - Rear-wheel traction ramps from 15% to 100% over 200ms after landing.
 - Hit-stop pauses the traction ramp so frozen time does not consume the landing transition.

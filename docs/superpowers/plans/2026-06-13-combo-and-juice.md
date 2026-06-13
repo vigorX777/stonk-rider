@@ -273,7 +273,7 @@ export function getJumpForce(speedX: number): number {
 在 `stepBikeControl` 函数体末尾、return 语句之前，新增跳跃力计算：
 
 ```typescript
-  const jumpForce = input.jump && input.rearGrounded ? getJumpForce(input.speedX) : 0
+  const jumpForce = input.jump && input.grounded ? getJumpForce(input.speedX) : 0
 ```
 
 修改 return 语句，在 `torqueFactor` 之后新增 `jumpForce`：
@@ -364,7 +364,7 @@ git commit -m "feat: add jump force to bike control model
 - BikeControlInput gets 'jump' field
 - BikeControlOutput gets 'jumpForce' field
 - getJumpForce(speedX): base 0.055 + speed bonus up to 0.045
-- Jump only activates when rearGrounded and jump pressed
+- Jump activates when any wheel is grounded and jump is pressed
 - Tests cover: no-press, airborne, speed scaling
 
 Co-Authored-By: Claude <noreply@anthropic.com>"
@@ -1454,7 +1454,7 @@ npm run dev
 ```
 
 验证清单：
-1. 空格键在后轮着地时触发跳跃，空中不可跳
+1. 空格键在任一车轮着地时触发跳跃，空中不可跳
 2. 跳跃高度随速度增加
 3. 吃到涨金币 → gain combo HUD 显示并递增，loss combo 归零
 4. 吃到跌金币 → loss combo HUD 显示并递增，gain combo 归零
@@ -1486,7 +1486,7 @@ Co-Authored-By: Claude <noreply@anthropic.com>"
 ## 1.2.0 - 2026-06-13
 
 - 新增双 Combo 系统：涨跌独立计数，吃涨断跌、吃跌断涨，各自 6 秒窗口
-- 新增真实跳跃：空格键触发，后轮着地条件，跳跃力随速度递增
+- 新增真实跳跃：空格键触发，任一车轮着地条件，跳跃力随速度递增
 - 跳跃力公式：base 0.055 + speed bonus up to 0.045（max ~0.10）
 - 未吃金币保留：所有未结算金币持续渲染在视口内，回头可拾取
 - 落地牵引力渐变：后轮着地 200ms 牵引力从 15% 渐入到 100%

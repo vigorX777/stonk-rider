@@ -91,7 +91,7 @@ export function stepBikeControl(input: BikeControlInput): BikeControlOutput {
   const pitchAngularVelocityTarget = input.leanAxis === 0
     ? null
     : input.leanAxis * (input.grounded ? 0.075 : 0.11)
-  const jumpForce = input.jump && input.rearGrounded ? getJumpForce(input.speedX) : 0
+  const jumpForce = input.jump && input.grounded ? getJumpForce(input.speedX) : 0
   if (input.leanAxis === 0 && input.grounded) {
     const angleError = Math.atan2(
       Math.sin(input.roadAngle - input.chassisAngle),

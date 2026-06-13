@@ -50,6 +50,7 @@ export class RideScene extends Phaser.Scene {
   private respawnProtectedUntil = 0
   private respawning = false
   private tractionRampUntil = 0
+  private jumpQueuedUntil = 0
   private particles: Array<{
     x: number
     y: number
@@ -83,6 +84,7 @@ export class RideScene extends Phaser.Scene {
     this.throttle = 0
     this.driveMode = 'coast'
     this.leanAxis = 0
+    this.jumpQueuedUntil = 0
     this.groundedPairs.clear()
     this.rearGroundedPairs.clear()
     this.dangerPairs.clear()
@@ -264,7 +266,11 @@ export class RideScene extends Phaser.Scene {
     const braking = this.keys.down.isDown || this.keys.s.isDown
     const leaningBack = this.keys.left.isDown || this.keys.a.isDown
     const leaningForward = this.keys.right.isDown || this.keys.d.isDown
-    const jumping = Phaser.Input.Keyboard.JustDown(this.keys.space)
+    if (Phaser.Input.Keyboard.JustDown(this.keys.space)) {
+      this.jumpQueuedUntil = this.time.now + 140
+    }
+    const grounded = this.groundedPairs.size > 0
+    const jumping = grounded && this.time.now <= this.jumpQueuedUntil
     const leanAxis: -1 | 0 | 1 = leaningBack === leaningForward ? 0 : leaningBack ? -1 : 1
     this.leanAxis = leanAxis
     const control = stepBikeControl({
@@ -278,7 +284,7 @@ export class RideScene extends Phaser.Scene {
       chassisAngle: this.chassis.angle,
       chassisAngularVelocity: this.chassis.angularVelocity,
       rearWheelAngularVelocity: this.rearWheel.angularVelocity,
-      grounded: this.groundedPairs.size > 0,
+      grounded,
       rearGrounded: this.rearGroundedPairs.size > 0,
       jump: jumping,
     })
@@ -301,6 +307,7 @@ export class RideScene extends Phaser.Scene {
       })
     }
     if (control.jumpForce > 0) {
+      this.jumpQueuedUntil = 0
       const vy = -control.jumpForce
       for (const body of [this.chassis, this.rearWheel, this.frontWheel, this.riderHead]) {
         this.matter.body.setVelocity(body, {
